@@ -21,7 +21,7 @@ const errorMiddleware = (error, req, res, next) => {
         statusCode = 400;
     }
 
-    return res.json({
+    return res.status(statusCode).json({
         error : {
             errorType,
             statusCode
