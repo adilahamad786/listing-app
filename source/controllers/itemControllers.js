@@ -4,8 +4,16 @@ const CustomError = require("../utils/customError");
 
 // get all items
 exports.getItems = tryCatch( async (req, res) => {
-    const items = await Item.find({ owner: req.user._id }, { image: 0 }).sort({ _id: -1 });
-    res.send(items);
+    let items  = [];
+    if (req.body?.filter?.category && req.body?.filter?.category !== "all")
+        items = await Item.find({ owner: req.user._id, category: req.body.filter.category }, { image: 0 }).sort({ _id: req.body.sort ? req.body.sort : "1" });
+    else
+        items = await Item.find({ owner: req.user._id }, { image: 0 }).sort({ _id: req.body.sort ? req.body.sort : "1" });
+
+    if (req.body?.filter?.price?.start >= 0 && req.body?.filter?.price?.end >= 1)
+        items = items.filter(item => item.price >= req.body.filter.price.start && item.price <= req.body.filter.price.end);
+
+    await res.send(items);
 });
 
 // get all items

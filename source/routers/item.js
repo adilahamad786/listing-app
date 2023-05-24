@@ -4,10 +4,10 @@ const uploadFile = require("../middlewares/uploadFile");
 const { getItems, getItemImage, createItem, updateItem, deleteItem } = require("../controllers/itemControllers");
 
 // Get items
-router.get("/get-items", auth, getItems);
+router.post("/get-items", auth, getItems);
 
 // Get item image
-router.get("/image/:itemId", auth, getItemImage);
+router.get("/image/:itemId", getItemImage);
 
 // Create item
 router.post("/create", auth, uploadFile.single("image"), createItem);

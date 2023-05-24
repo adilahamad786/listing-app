@@ -23,4 +23,8 @@ exports.login = tryCatch( async (req, res) => {
     res.send({ user, token });
 });
 
+exports.getUser = tryCatch( async (req, res) => {
+    res.send({ user: req.user, token: req.token });
+});
+
 

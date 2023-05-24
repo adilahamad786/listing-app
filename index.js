@@ -3,6 +3,7 @@ const express = require("express");
 const userRouter = require("./source/routers/user");
 const itemRouter = require("./source/routers/item");
 const errorMiddleware = require("./source/middlewares/errorMiddleware");
+const morgan = require("morgan");
 require("dotenv").config();
 
 const app = express();
@@ -12,6 +13,8 @@ connectDb();
 const port = process.env.PORT || 8800;
 
 app.use(express.json());
+app.use(morgan("default"));
+
 app.use("/api/user", userRouter);
 app.use("/api/item", itemRouter);
 

@@ -1,12 +1,9 @@
 const tryCatch = (callback) => async (req, res, next) => {
     try {
-        await callback(req, res);
+        await callback(req, res, next);
     }
     catch (error) {
-        return next(error);
-    }
-    finally {
-        next();
+        next(error);
     }
 }
 

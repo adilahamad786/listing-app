@@ -4,7 +4,7 @@ const CustomError = require("../utils/customError");
 const User = require("../models/user");
 require("dotenv").config();
 
-const auth = tryCatch( async (req, res) => {
+const auth = tryCatch( async (req, res, next) => {
 
     const token = req.headers.authorization;
 
@@ -20,6 +20,8 @@ const auth = tryCatch( async (req, res) => {
 
     req.user = user;
     req.token = token;
+
+    next();
 });
 
 module.exports = auth;
